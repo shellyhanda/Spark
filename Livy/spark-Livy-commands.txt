@@ -1,0 +1,39 @@
+
+
+************Connect to spark2 livy using curl************
+
+The below example uses curl to create a spark session, check the status, send a command and get the result from the command using Livy on the development cluster of HDO4. There are two servers running livy on HDO4 and we will connect to hdo4241-23.ca.boeing.com on port 8999.
+
+Create Session
+
+curl --negotiate -X POST -iku : --data '{"kind": "spark", "proxyUser":"svchdphdo4ecfd@NW.NOS.BOEING.COM"}' -H "Content-Type: application/json" -H "X-Requested-By:valid" https://hdo4241-23.ca.boeing.com:8999/sessions
+
+ curl --negotiate -u svchdphdo4ecfd -H 'X-Requested-By:svchdphdo4ecfd' -X POST --data '{"kind": "spark", "proxyUser":"te677c@NW.NOS.BOEING.COM"}' -H "Content-Type: application/json" https://hdo4241-23.ca.boeing.com:8999/sessions
+
+
+Result: {"id":8,"appId":null,"owner":null,"proxyUser":null,"state":"starting","kind":"spark","appInfo":{"driverLogUrl":null,"sparkUiUrl":null},"log":[]}
+
+Check the Session Status
+
+curl --negotiate -X GET -iku : -H "Content-Type: application/json" -H "X-Requested-By:valid" https://hdo4241-23.ca.boeing.com:8999/sessions/8
+
+
+Result: {"id":2,"appId":null,"owner":null,"proxyUser":null,"state":"idle","kind":"spark","appInfo":{"driverLogUrl":null,"sparkUiUrl":null},"log":[]}
+
+Send a Command
+
+curl --negotiate -X POST -iku : -H "Content-Type: application/json" -H "X-Requested-By:valid" --data '{"code": "sc.parallelize(1 to 10).count()"}' -H "Content-Type: application/json" https://hdo4241-23.ca.boeing.com:8999/sessions/8/statements
+
+
+Result: {"total_statements":0,"statements":[]}
+
+Get the Result
+
+curl --negotiate -X GET -iku : -H "Content-Type: application/json" -H "X-Requested-By:valid" https://hdo4241-23.ca.boeing.com:8999/sessions/8/statements
+
+
+Result: {"total_statements":1,"statements":[{"id":0,"state":"available","output":{"status":"ok","execution_count":0,"data":{"text/plain":"res0: Long = 10"}}}]}
+
+Delete the Session
+
+curl --negotiate -X DELETE -iku : -H "Content-Type: application/json" -H "X-Requested-By:valid" https://hdo4241-23.ca.boeing.com:8999/sessions/8

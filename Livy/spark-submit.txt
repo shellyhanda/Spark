@@ -1,0 +1,25 @@
+curl -X POST --data '{"file": "/dev/ecfd/python_poc/hello.py"}' -H "Content-Type: application/json" localhost:8999/batches{}
+curl -X POST --data '{"file": "/user/romain/pi.py"}' -H "Content-Type: application/json" localhost:8999/batches{"id":2,"state":"starting","log":[]}
+
+•https://knox-devl.web.boeing.com:8442/gateway/BOEINGHDO4/livy/v1
+
+curl -X POST --data '{"file": "/dev/ecfd/python_poc/hello.py"}' -H "Content-Type: application/json" https://knox-devl.web.boeing.com:8442/gateway/BOEINGHDO4/livy/v1/batches
+
+/usr/hdp/current/spark2-client/bin/spark-submit  --class com.boeing.td2hdp.ingestion.KafkaConsumer
+
+
+curl -X POST --data '{"file": "/data/home/svchdphdo4ecfd/scala_poc/hellospark_2.11-1.0.jar", "className": "org.apache.spark.examples.SparkPi"}' -H "Content-Type: application/json" localhost:8999/batches{"id":0,"state":"running","log":[]}
+
+curl -X POST --data '{"file": "/dev/ecfd/python_poc/hello.py"}' -H "Content-Type: application/json" hdo4241-23.ca.boeing.com:8999/batches {"id":2,"state":"starting","log":[]}
+
+
+********************************
+spark-submit --class com.cloudera.sparkwordcount.JavaWordCount --master yarn --deploy-mode cluster --executor-memory 10M --name JavaWordCount hdfs://ip-172-31-34-234.us-west-2.compute.internal:8020/user/hbaseuser/wordcount.jar
+
+curl --negotiate -u hbaseuser:hclindia -X POST --data '{"file": "hdfs:///user/hbaseuser/wordcount.jar", "className": "com.cloudera.sparkwordcount.JavaWordCount", "queue": "default", "name": "Livy Example"}' -H "Content-Type: application/json" http://172.31.34.234:8998/batches
+
+
+curl --negotiate -u hbaseuser:hclindia -X POST --data '{"file": "hdfs:///user/hbaseuser/hello.py"}' -H "Content-Type: application/json" http://172.31.34.234:8998/batches
+
+
+curl --negotiate -u hbaseuser:ecfdda http://172.31.34.234:8998/batches/31/
